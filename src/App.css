@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Open+Sans&display=swap');
+
+
+.App {
+  font-family: 'Roboto', 'Open Sans', 'Inter';
+  font-weight: 400;
+  font-size: 18px;
+  margin: 0;
+}
+
