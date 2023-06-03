@@ -16,3 +16,32 @@
     height: 21px;
     margin: 17px 0 17px 0;
 }
+
+@media screen and (max-width: 376px) {
+    .footer {
+        background: #0079BF;
+    }
+    
+    .footer__container {
+        display: none;
+    }
+
+    .footer__text {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 377px), (max-width: 600px) {
+    .footer {
+        background: #0079BF;
+        justify-content: center;
+    }
+    
+    .footer__container {
+        display: block;
+    }
+
+    .footer span:nth-child(2) {
+        display: none;
+    }
+}

@@ -1,88 +1,144 @@
-import React from "react";
+import React, { useCallback } from "react";
 import style from "../Ready/styles.module.css";
 import plus from "..//Ready/plus.svg"
-import { useState, useEffect } from "react";
-
+import { useState, useEffect, useRef } from "react";
+import Modal from "../Modal/Modal";
+import { Link } from 'react-router-dom';
 
 interface ReadyProps {
   handleTaskSelect: (item: string) => void;
   words: string[];
   selected: string[];
+  taskDescriptions: object | string;
+  setTaskDescriptions: (value: { [key: string]: string } | string) => void;
+  setWords: (value: string[]) => void;
+  selectedTask: any;
+  setSelectedTask: (value: string) => void;
+  setSelected: (value: string[]) => void;
 }
 
-let writeSelected: any;
-let getSelected: any;
 
-function Ready({ handleTaskSelect, words, selected }: ReadyProps): JSX.Element {
-    const [isAdding, setIsAdding] = useState<boolean>(false);
+function Ready(props: ReadyProps): JSX.Element {
+  const [isAdding, setIsAdding] = useState<boolean>(false);
+  const [showModal, setShowModal] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const selectRef = useRef<HTMLSelectElement | null>(null);
+  const btnRef = useRef<HTMLButtonElement | null>(null);
 
-    function handleAddTask() {
-      setIsAdding(true);
+  const taskUrl = `/ready/${props.selectedTask}`;
+
+  useEffect(() => {
+    const savedTasksR = JSON.parse(localStorage.getItem("savedTasks") as string)  || [];
+    const savedDescriptionsR = JSON.parse(localStorage.getItem("savedDescriptions") as string) || {}; // получить данные из savedTasks, savedDescriptions
+    
+    if (savedTasksR) {
+      props.setSelected(savedTasksR);
     }
 
-    // useEffect(() => {
-    //   // при изменении значения selected сохраняем его в localStorage
-    //   localStorage.setItem("ready", selected);
-    // }, [selected]);
+    if (savedDescriptionsR) {
+      props.setTaskDescriptions(savedDescriptionsR);
+    }
+    
+  }, []);
 
-    useEffect(() => {
-      localStorage.setItem("ready", JSON.stringify(selected));
-      localStorage.getItem("ready")
-    }, [selected]);
+  useEffect(() => {
+    localStorage.setItem("savedTasks", JSON.stringify(props.selected)); // записать данные в savedTasks
+  }, [props.selected]);
 
-    // useEffect(() => {
-    //   const storedSelected = localStorage.getItem("ready");
+  useEffect(() => {
+    localStorage.setItem("savedDescriptions", JSON.stringify(props.taskDescriptions)); // записать данные в savedDescriptions
+  }, [props.taskDescriptions]);
+  
+  useEffect(() => {
+    adjustContainerHeight(); // Начальную высоту контейнера
+  }, []);
+  
+  useEffect(() => {
+    adjustContainerHeight(); //  Обновить высоту контейнера
+  }, [props.selected]);
+  
+  function handleAddTask() {
+    setIsAdding(true);
+    adjustContainerHeight()
+  }
+
+  function chooseSelectedTask(event) { // проверка элемента и запись задачи в setSelectedTask
+    if (event.target.classList.contains(style.container__tasktext)) {
+        const task = event.target.textContent;
+        props.setSelectedTask(task);
+        setShowModal(true);
+    }
+  }
+
+  const adjustContainerHeight = () => { // настройка высоты
+    if (containerRef.current) {
+      const containerHeight = containerRef.current.scrollHeight;
+      let totalHeight = containerHeight;
       
-    //   if (selected !== null) {
-    //     return () => {
-    //       <div className={style.container}>
-    //       <h5 className={style.container__title}>Ready</h5>
-    //         <p className={style.container__tasktext}>{storedSelected}</p>
-    //                     <button className={style.container__btn} onClick={handleAddTask}>
-    //           <img src={plus}></img>
-    //           Add card
-    //         </button>
-    //       </div>
+      if (selectRef.current) {
+        const selectHeight = selectRef.current.scrollHeight;
+        totalHeight += selectHeight;
+      }
 
-    //     }
-    //   }
-    // }, [])
-    // for(let i=0; i<localStorage.length; i++) {
-    //   let key = localStorage.getItem("ready");
-    //   console.log(`${key}: ${localStorage.getItem("ready")}`);
-    // }
+      if(btnRef.current) {
+        const btnHeight = btnRef.current.scrollHeight;
+        totalHeight += btnHeight
+      }
+
+      containerRef.current.style.height = `${totalHeight}px`;
+    }
+  };
 
     return (
-      <div className={style.container}>
+      <div className={style.container} ref={containerRef}>
         <h5 className={style.container__title}>Ready</h5>
-        { selected != null && <p className={style.container__tasktext}>{localStorage.getItem("ready")}</p>}
 
-        {selected.map((item: string, index: number) => (
-            <p key={index} className={style.container__tasktext}>{item}</p>
-            ))} 
+        {
+                    showModal ? (
+                        <Modal showModal={showModal} setShowModal={setShowModal}>
+                            <>
+                                <h5 className={style.container__title}>Задача: {props.selectedTask}</h5>
+                                <p>{props.taskDescriptions[props.selectedTask]}</p>
+                                <button className={style.container__btn} 
+                                onClick={() => setShowModal(false)}>Close</button>
+                            </>
+                        </Modal>
+                    ) : null
+                }
 
-        {isAdding && (
+            <Link to={taskUrl} className={style.container__link}>
+              {props.selected.map((item: string, index: number) => (
+              <p key={index} 
+              className={style.container__tasktext} 
+              onClick={chooseSelectedTask}>{item}</p>
+                ))}
+            </Link>
+
+        { isAdding && (
+
           <div className={style.container__addtask}>
             <select
               className={style.container__select} 
               value={''}
-              onChange={(e) => handleTaskSelect(e.target.value)}
-            >
-              <option disabled value="" style={{textAlign: "center", overflow: "hidden", width: "280px"}}>
-                Select an item
+              onChange={(e) => props.handleTaskSelect(e.target.value)}
+              ref={selectRef}
+              >
+
+              <option disabled value="">Select an item</option>
+
+              {props.words.map((item: string) => (
+              <option key={item} value={item}>
+              {item}
               </option>
-              {/* display options from props.words */}
-              {words.map((item: string) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
               ))}
             </select>
           </div>
+
         )}
 
         {!isAdding && (
-          <button className={style.container__btn} onClick={handleAddTask}>
+          
+          <button className={style.container__btn} onClick={handleAddTask} ref={btnRef}>
             <img src={plus}></img>
             Add card
           </button>

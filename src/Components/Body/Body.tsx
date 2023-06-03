@@ -11,47 +11,59 @@ interface BodyProps {
 }
 
 function Body ({updateNumTasks}: BodyProps) {
-
-    const [newTaskText, setNewTaskText] = useState<string | undefined>("");
+    const [newTaskText, setNewTaskText] = useState<string | null | undefined>("");
     const [words, setWords] = useState<string | any>([]);
     const [selected, setSelected] = useState<string | any>([]);
-    const [inProgress, setInProgress] = useState([]);
-    const [finish, setFinish] = useState ([]);
+    const [inProgress, setInProgress] = useState<string | any>([]);
+    const [finish, setFinish] = useState<string | any>([]);
+    const [taskDescriptions, setTaskDescriptions] = useState<object | string>({})
+    const [selectedTask, setSelectedTask] = useState<any>(null);
 
     useEffect(() => {
-        updateNumTasks(inProgress.length, finish.length)
-    }, [inProgress, finish])
+        updateNumTasks(words.length, finish.length)
+    }, [words, finish])
 
     function updateTaskText (newTaskText: string) {
         setNewTaskText(newTaskText);
     }
 
-    const handleTaskSelect = (item: never) => {
-        setWords(words.filter((word) => word !== item));
-        setSelected([item, ...selected].reverse()); //не совсем корректно
-        console.log(selected, words)
-      };
+    const handleTaskSelect = (item: string) => {
+        setWords(words.filter((word: string) => word !== item));
+        setSelected([...selected, item]);
+    };
 
-      const handleTaskSelectReady = (item: never) => {
-        setSelected(selected.filter((select) => select !== item)); //select change item
-        setInProgress([item, ...inProgress]); //не совсем корректно
-        console.log(inProgress, selected)
-      };
+    const handleTaskSelectReady = (item: string) => {
+        setSelected(selected.filter((select: string) => select !== item)); //фильтруем и добавляем массив
+        setInProgress([...inProgress ,item]); 
+    };
 
-      const handleTaskSelectFinish = (item: never) => {
-        setInProgress(inProgress.filter((progress) => progress !== item));
-        setFinish([item, ...finish])
-        console.log(finish, inProgress)
-      }
+    const handleTaskSelectFinish = (item: string) => {
+        setInProgress(inProgress.filter((progress: string) => progress !== item));
+        setFinish([...finish, item])
+    }
 
     return (
-        <div className={style.body}>
-            <Backlog updateTaskText={updateTaskText} newTaskText={newTaskText} words={words} setWords={setWords}/>
-            <Ready handleTaskSelect={handleTaskSelect} words={words} selected={selected} />
-            <Progress handleTaskSelectReady={handleTaskSelectReady} selected={selected} inProgress={inProgress}/>
-            <Finished handleTaskSelectFinish={handleTaskSelectFinish} inProgress={inProgress} finish={finish}/>
-        </div>
+        <main className={style.body}>
 
+            <Backlog updateTaskText={updateTaskText} taskDescriptions={taskDescriptions}
+              newTaskText={newTaskText} words={words} setWords={setWords}
+             setTaskDescriptions={setTaskDescriptions} selectedTask={selectedTask} setSelectedTask={setSelectedTask}/>
+
+            <Ready handleTaskSelect={handleTaskSelect} taskDescriptions={taskDescriptions} 
+            setTaskDescriptions={setTaskDescriptions}  words={words} selected={selected} setSelected={setSelected} setWords={setWords}
+            selectedTask={selectedTask} setSelectedTask={setSelectedTask}/>
+
+            <Progress handleTaskSelectReady={handleTaskSelectReady} taskDescriptions={taskDescriptions} selected={selected} inProgress={inProgress} 
+            setTaskDescriptions={setTaskDescriptions} setSelected={setSelected} setWords={setWords}
+            selectedTask={selectedTask} setSelectedTask={setSelectedTask} setInProgress={setInProgress}
+            />
+
+            <Finished handleTaskSelectFinish={handleTaskSelectFinish} inProgress={inProgress} finish={finish} setFinish={setFinish}
+            taskDescriptions={taskDescriptions} setTaskDescriptions={setTaskDescriptions} selectedTask={selectedTask} 
+            setSelectedTask={setSelectedTask}
+            />
+
+        </main>
     )
 }
 

@@ -6,3 +6,26 @@
     gap: 20px;
     justify-content: space-between;
 }
+
+@media screen and (max-width: 376px) {
+    .body {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 377px), (max-width: 650px) {
+    .body {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+    }
+}
+
+@media screen and (max-width: 651px), (max-width: 900px) {
+    .body {
+        flex-wrap: wrap;
+        height: auto;
+    }
+}

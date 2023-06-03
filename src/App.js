@@ -7,6 +7,7 @@ import { useState } from 'react';
 function App() {
   const [activeNum, setActiveNum] = useState(0)
   const [finishedNum, setFinishedNum] = useState(0)
+  
 
 function updateNumTasks (activeNum, finishedNum) {
   setActiveNum(activeNum);
@@ -15,11 +16,11 @@ function updateNumTasks (activeNum, finishedNum) {
 }
 
   return (
-    <div className="App">
-      <Header />
-      <Body updateNumTasks={updateNumTasks}/>
-      <Footer activeNum={activeNum} finishedNum={finishedNum} />
-    </div>
+    <>
+        <Header />
+        <Body updateNumTasks={updateNumTasks}/>
+        <Footer activeNum={activeNum} finishedNum={finishedNum} />
+    </>
   );
 }
 
