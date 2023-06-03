@@ -1,0 +1,18 @@
+.footer {
+    display: flex;
+    padding: 0 20px 0 20px;
+    background: #0067A3;
+    height: 55px;
+    justify-content: space-between;
+}
+
+.footer__container {
+    display: flex;
+    gap: 36px;
+}
+
+.footer__text {
+    color: white;
+    height: 21px;
+    margin: 17px 0 17px 0;
+}
