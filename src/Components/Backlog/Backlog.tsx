@@ -74,7 +74,7 @@ function Backlog (props: BacklogProps): JSX.Element {
     }
 
     const saveNewTask = () => {
-      if (props.newTaskText && props.newTaskText.trim() === '') { // Проверка на пустое поле
+      if (props.newTaskText.trim() === '') { // Проверка на пустое поле
         alert('Enter a new Task!');
         return;
       }

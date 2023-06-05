@@ -10,14 +10,26 @@ interface BodyProps {
     updateNumTasks: (activeNum: number, finishedNum: number) => void;
 }
 
+interface commonProps {
+    taskDescriptions: object | string;
+    setTaskDescriptions: (value: { [key: string]: string } | string) => void;
+    words: string[] | any;
+    setWords: any
+    selectedTask: any;
+    setSelectedTask: (value: string) => void;
+}
+
+
 function Body ({updateNumTasks}: BodyProps) {
     const [newTaskText, setNewTaskText] = useState<string | null | undefined>("");
-    const [words, setWords] = useState<string | any>([]);
+    const [words, setWords] = useState<string[] | any>([]);
     const [selected, setSelected] = useState<string | any>([]);
     const [inProgress, setInProgress] = useState<string | any>([]);
     const [finish, setFinish] = useState<string | any>([]);
     const [taskDescriptions, setTaskDescriptions] = useState<object | string>({})
     const [selectedTask, setSelectedTask] = useState<any>(null);
+    const commonProps = { taskDescriptions: taskDescriptions, setTaskDescriptions: setTaskDescriptions, 
+        words: words, setWords: setWords, selectedTask: selectedTask, setSelectedTask: setSelectedTask, };
 
     useEffect(() => {
         updateNumTasks(words.length, finish.length)
@@ -45,9 +57,7 @@ function Body ({updateNumTasks}: BodyProps) {
     return (
         <main className={style.body}>
 
-            <Backlog updateTaskText={updateTaskText} taskDescriptions={taskDescriptions}
-              newTaskText={newTaskText} words={words} setWords={setWords}
-             setTaskDescriptions={setTaskDescriptions} selectedTask={selectedTask} setSelectedTask={setSelectedTask}/>
+            <Backlog updateTaskText={updateTaskText} {...commonProps} newTaskText={newTaskText}/>
 
             <Ready handleTaskSelect={handleTaskSelect} taskDescriptions={taskDescriptions} 
             setTaskDescriptions={setTaskDescriptions}  words={words} selected={selected} setSelected={setSelected} setWords={setWords}
