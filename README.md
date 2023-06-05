@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# ТРЕБОВАНИЯ К REACT
+Интерфейс должен быть поделён на компоненты. Перед началом работы хорошенько обдумайте, какие компоненты вы будете использовать. Деление на компоненты должно быть логичным и оправданным.
+После того как определитесь с делением на компоненты, подумайте о том, как верно организовать файловую структуру.
+Следуйте принципам модульности (используйте export, import).
+Используйте Typescript для описания типов данных.
+Используйте Synthetic events для работы с событиями.
+Для вывода разного состояния элементов в зависимости от действий пользователя (пример: раскрытое/свернутое меню пользователя) используйте условный рендеринг.
+Для реализации отдельных страниц для каждой задачи и перехода между страницами используйте библиотеку react-router.
+Для ключевых React-компонентов необходимо добавить тесты.
+При написании кода старайтесь следовать принципам KISS (Keep It Short and Simple — не усложняй) и DRY (Don’t Repeat Yourself — не повторяйся).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# ТРЕБОВАНИЯ К ВЁРСТКЕ И CSS
+Вёрстка должна соответствовать макету. Добиваться Pixel Perfect соответствия не обязательно, но основные моменты должны быть соблюдены: цветовая гамма, шрифты, размеры, отступы.
+Приложение должно корректно отображаться и на мобильных устройствах. Дизайн для мобильной версии вы можете найти в макете.
+Соблюдайте семантическую вёрстку. В приложении должны присутствовать разделы <header>, <main> и <footer>. Кнопки должна быть реализованы элементом <button>, элементы дропдауна — списком <select> и так далее.
+При наведении курсора на любые кликабельные элементы должен появляться cursor: pointer.
+Учитывайте состояния кнопки + Add card — активная и неактивная.
+Если кнопка активна, её внешний вид должен соответствовать макету. При наведении она должна подсвечиваться (менять цвет), а курсор должен меняться на pointer.
+Если кнопка неактивна (назначен атрибут disabled), её цвет должен отличаться от активного состояния, кнопка не должна реагировать на наведение курсора (цвет остаётся таким же, не появляется курсор pointer).
+Можете использовать любой вариант подключения стилей на ваше усмотрение: общий файл стилей проекта, CSS-модули или специальные React-библиотеки для стилизации компонентов (например, Styled Components).
+Использовать селекторы по тегу и id для задания стилей нельзя. Используйте классы.
+  
+# REQUIREMENTS FOR REACT
+The interface must be divided into components. Before you start, think carefully about which components you will use. The division into components should be logical and justified.
+After you decide on the division into components, think about how to properly organize the file structure.
+Follow the principles of modularity (use export, import).
+Use Typescript to describe data types.
+Use Synthetic events to work with events.
+To display a different state of elements depending on user actions (example: expanded / collapsed user menu), use conditional rendering.
+To implement separate pages for each task and navigate between pages, use the react-router library.
+For key React components, you need to add tests.
+When writing code, try to follow the principles of KISS (Keep It Short and Simple - do not complicate) and DRY (Don't Repeat Yourself - do not repeat yourself).
 
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# LAYOUT AND CSS REQUIREMENTS
+The layout must match the layout. Achieving Pixel Perfect compliance is not necessary, but the main points must be observed: colors, fonts, sizes, indents.
+The application should also display correctly on mobile devices. You can find the design for the mobile version in the layout.
+Follow semantic layout. The application must have <header>, <main>, and <footer> sections. Buttons should be implemented by a <button> element, dropdown elements by a <select> list, and so on.
+When hovering over any clickable elements, cursor: pointer should appear.
+Consider the states of the + Add card button - active and inactive.
+If the button is active, its appearance should match the layout. When you hover, it should be highlighted (change color), and the cursor should change to pointer.
+If the button is inactive (the disabled attribute is assigned), its color should be different from the active state, the button should not respond to hover (the color remains the same, the pointer cursor does not appear).
+You can use any style connection option of your choice: a common project style file, CSS modules, or special React libraries for styling components (for example, Styled Components).
+You can't use tag and id selectors to set styles. Use classes.
