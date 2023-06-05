@@ -19,8 +19,7 @@
 Если кнопка неактивна (назначен атрибут disabled), её цвет должен отличаться от активного состояния, кнопка не должна реагировать на наведение курсора (цвет остаётся таким же, не появляется курсор pointer).
 Можете использовать любой вариант подключения стилей на ваше усмотрение: общий файл стилей проекта, CSS-модули или специальные React-библиотеки для стилизации компонентов (например, Styled Components).
 Использовать селекторы по тегу и id для задания стилей нельзя. Используйте классы.
-  
-  
+
 # REQUIREMENTS FOR REACT
 The interface must be divided into components. Before you start, think carefully about which components you will use. The division into components should be logical and justified.
 After you decide on the division into components, think about how to properly organize the file structure.
@@ -32,7 +31,6 @@ To implement separate pages for each task and navigate between pages, use the re
 For key React components, you need to add tests.
 When writing code, try to follow the principles of KISS (Keep It Short and Simple - do not complicate) and DRY (Don't Repeat Yourself - do not repeat yourself).
 
-  
 # LAYOUT AND CSS REQUIREMENTS
 The layout must match the layout. Achieving Pixel Perfect compliance is not necessary, but the main points must be observed: colors, fonts, sizes, indents.
 The application should also display correctly on mobile devices. You can find the design for the mobile version in the layout.
