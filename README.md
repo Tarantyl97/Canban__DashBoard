@@ -18,7 +18,8 @@
 Если кнопка активна, её внешний вид должен соответствовать макету. При наведении она должна подсвечиваться (менять цвет), а курсор должен меняться на pointer.
 Если кнопка неактивна (назначен атрибут disabled), её цвет должен отличаться от активного состояния, кнопка не должна реагировать на наведение курсора (цвет остаётся таким же, не появляется курсор pointer).
 Можете использовать любой вариант подключения стилей на ваше усмотрение: общий файл стилей проекта, CSS-модули или специальные React-библиотеки для стилизации компонентов (например, Styled Components).
-Использовать селекторы по тегу и id для задания стилей нельзя. Используйте классы.
+Использовать селекторы по тегу и id для задания стилей нельзя. Используйте классы
+  
 # REQUIREMENTS FOR REACT
 The interface must be divided into components. Before you start, think carefully about which components you will use. The division into components should be logical and justified.
 After you decide on the division into components, think about how to properly organize the file structure.
